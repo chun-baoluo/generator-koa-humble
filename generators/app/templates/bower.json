@@ -1,0 +1,11 @@
+{
+  "name": "<%= props.appName %>",
+  "description": "",
+  "main": "app.js",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.5.5"
+  }
+}

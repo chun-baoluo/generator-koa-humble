@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>{{ title }}</title>
+		<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+		{% block head %}{% endblock %}
+	</head>
+	<body>
+		<div class="content" ng-app="app" ng-controller="mainCtrl">
+			{% block content %}{% endblock %}
+		</div>
+		{% block scripts %}{% endblock %}
+	</body>
+</html>

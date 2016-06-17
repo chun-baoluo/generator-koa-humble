@@ -1,0 +1,39 @@
+{
+  "name": "<%= props.appName %>",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha"
+  },
+  "dependencies": {<% if(props.objectMapping == 'Mongoose') { %>
+    "bluebird": "^3.4.0",<% } %>
+    "co-body": "^4.2.0",
+    "co-views": "^2.1.0",<% if(props.templateEngine == 'Jade') { %>
+    "jade": "^1.11.0",<% } %>
+    "md5": "^2.1.0",<% if(props.objectMapping == 'Mongoose') { %>
+    "mongoose": "^4.5.0",<% } if(props.objectMapping == 'Sequelize') { %>
+    "sequelize": "^3.23.3",<% } if(props.templateEngine == 'Swig') { %>
+    "swig": "^1.3.2",<% } %>
+    "koa": "^2.0.0",
+    "koa-bodyparser": "^2.2.0",
+    "koa-compress": "^1.0.9",
+    "koa-generic-session": "^1.10.2",
+    "koa-logger": "^1.3.0",
+    "koa-passport": "^1.3.1",
+    "koa-router": "^5.4.0",
+    "koa-static": "^2.0.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-imagemin": "^3.0.1",<% if(props.cssPreprocessor == 'Less') { %>
+    "gulp-less": "^3.1.0",<% } %>
+    "gulp-rename": "^1.2.2",<% if(props.cssPreprocessor == 'Sass') { %>
+    "gulp-sass": "^2.3.1",<% } if(props.cssPreprocessor == 'Stylus') { %>
+    "gulp-stylus": "^2.3.1",<% } %>
+    "gulp-uglify": "^1.5.3",
+    "mocha": "^2.5.3",
+    "supertest": "^1.2.0"
+  }
+}
