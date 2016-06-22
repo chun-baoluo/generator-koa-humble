@@ -11,27 +11,27 @@ const userSchema = new Schema({
 	password: String,
 	firstname: String,
 	lastname: String,
-    email: {
-      type: String,
-      trim: true,
-      unique: true,
-      match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
-    }
+	email: {
+		type: String,
+		trim: true,
+		unique: true,
+		match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+	}
 });
 
 module.exports = {
-	user: mongoose.model('user', usernpm starSchema)
+	user: mongoose.model('user', userSchema)
 };
 <% } %><% if(props.objectMapping == 'Sequelize') { %>
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('<%= props.appName %>', 'yourusername', 'yourpasword', {
-  host: 'localhost',
-  dialect: 'mysql', // Your sql dialect. Do not forget to install appropriate package.
-  pool: {
-    max: 5,
-    min: 0,
-    idle: 10000
+const sequelize = new Sequelize('<%= props.appName %>', '<%= props.username %>', '<%= props.password %>', {
+	host: 'localhost',
+	dialect: '<%= props.sqlDialect %>',
+	pool: {
+		max: 5,
+		min: 0,
+		idle: 10000
 	},
 });
 

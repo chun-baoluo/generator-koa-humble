@@ -2,12 +2,13 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var path = require('path');
 
 module.exports = yeoman.Base.extend({
 
   initializing: function () {
     this.props = {};
-    this.props.appName = this.name || 'myKoaApp';
+    this.props.appName = this.name || path.basename(process.cwd());
   },
 
   prompting: function () {
@@ -25,6 +26,36 @@ module.exports = yeoman.Base.extend({
       name: 'objectMapping',
       message: 'What object mapping would you like to use?',
       choices: ['Mongoose', 'Sequelize'],
+    }, {
+      when: function(response) {
+        if(response.objectMapping == 'Sequelize') {
+          return response.objectMapping;
+        }
+      },
+      name: 'username',
+      type: 'input',
+      message: 'What is your username for the database?',
+      default: 'root'
+    }, {
+      when: function(response) {
+        if(response.objectMapping == 'Sequelize') {
+          return response.objectMapping;
+        }
+      },
+      name: 'password',
+      type: 'input',
+      message: 'What is your password for the database?',
+      default: 'pass'
+    }, {
+      when: function(response) {
+        if(response.objectMapping == 'Sequelize') {
+          return response.objectMapping;
+        }
+      },
+      name: 'sqlDialect',
+      type: 'list',
+      message: 'What is your sql dialect?',
+      choices: ['mysql', 'postgres', 'mariadb']
     }, {
       type: 'list',
       name: 'templateEngine',
@@ -157,6 +188,6 @@ module.exports = yeoman.Base.extend({
   },
 
   end: function() {
-    this.log(chalk.green('Installation completed! Have fun!'));
+    this.log(chalk.green('Done! Have fun!'));
   }
 });
