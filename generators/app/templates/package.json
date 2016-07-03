@@ -17,8 +17,10 @@
     "mysql": "^2.11.1", <% } if(props.objectMapping == 'Sequelize') { %>
     "sequelize": "^3.23.3",<% } if(props.templateEngine == 'Swig') { %>
     "swig": "^1.3.2",<% } if(props.sqlDialect == 'postgres') { %>
-    "pg": "^4.5.6",<% } %>
-    "koa": "^2.0.0",
+    "pg": "^4.5.6",<% } if(props.koa == 'Koa v1') { %>
+    "koa": "^1.2.0",
+    "koa-convert": "^1.2.0",<% } if(props.koa == 'Koa v2') { %>
+    "koa": "^2.0.0",<% } %>
     "koa-bodyparser": "^2.2.0",
     "koa-compress": "^1.0.9",
     "koa-generic-session": "^1.10.2",

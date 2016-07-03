@@ -23,6 +23,11 @@ module.exports = yeoman.Base.extend({
       default: this.props.appName
     }, {
       type: 'list',
+      name: 'koa',
+      message: 'What koa version do you prefer?',
+      choices: ['Koa v1', 'Koa v2'],
+    }, {
+      type: 'list',
       name: 'objectMapping',
       message: 'What object mapping would you like to use?',
       choices: ['Mongoose', 'Sequelize'],
@@ -176,9 +181,10 @@ module.exports = yeoman.Base.extend({
       this.destinationPath('./.bowerrc')
     );
 
-    this.fs.copy(
+    this.fs.copyTpl(
       this.templatePath('./app.js'),
-      this.destinationPath('./app.js')
+      this.destinationPath('./app.js'),
+      this
     );
 
   },
