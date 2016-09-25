@@ -30,7 +30,7 @@ module.exports = yeoman.Base.extend({
       type: 'list',
       name: 'objectMapping',
       message: 'What object mapping would you like to use?',
-      choices: ['Mongoose', 'Sequelize'],
+      choices: ['Mongoose', 'Sequelize', 'None'],
     }, {
       when: function(response) {
         if(response.objectMapping == 'Sequelize') {
@@ -86,19 +86,21 @@ module.exports = yeoman.Base.extend({
       this
     );
 
-    this.fs.copyTpl(
-      this.templatePath('./controllers/users.js'),
-      this.destinationPath('./controllers/users.js'),
-      this
-    );
+    if(this.props.objectMapping != 'None') {
+      this.fs.copyTpl(
+        this.templatePath('./controllers/users.js'),
+        this.destinationPath('./controllers/users.js'),
+        this
+      );
 
-    // Models
-    this.fs.copyTpl(
-      this.templatePath('./models/models.js'),
-      this.destinationPath('./models/models.js'),
-      this
-    );
-
+      // Models
+      this.fs.copyTpl(
+        this.templatePath('./models/models.js'),
+        this.destinationPath('./models/models.js'),
+        this
+      );
+    }
+    
     // Private
     this.fs.copy(
       this.templatePath('./private/img'),

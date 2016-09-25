@@ -1,6 +1,6 @@
 'use strict';
-const views = require('./controllers/views');
-const users = require('./controllers/users');
+const views = require('./controllers/views');<% if(props.objectMapping != 'None') { %>
+const users = require('./controllers/users');<% } %>
 const compress = require('koa-compress');
 const logger = require('koa-logger');
 const serve = require('koa-static');
@@ -13,7 +13,7 @@ app.keys = ['here-will-be-your-keys-and-nothing-else'];
 
 // Logger
 app.use(logger());
-
+<% if(props.objectMapping != 'None') { %>
 // Body parse & Session
 app.use(users.bodyParser());
 app.use(users.session());
@@ -21,13 +21,14 @@ app.use(users.session());
 // Passport
 app.use(users.passport.initialize());
 app.use(users.passport.session());
-
+<% } %>
 // Routes
 router.get('/', views.home);
+<% if(props.objectMapping != 'None') { %>
 router.get('/users', users.routes.users);
 router.get('/logout', users.routes.logout);
 router.post('/auth/user', users.passport.authenticate('user', { successRedirect: '/success', failureRedirect: '/fail'}));
-
+<% } %>
 // Serve files
 app.use(serve(path.join(__dirname, 'public')));
 
