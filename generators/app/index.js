@@ -71,6 +71,11 @@ module.exports = yeoman.Base.extend({
       name: 'cssPreprocessor',
       message: 'What css preprocessor would you like to use?',
       choices: ['Less', 'Sass', 'Stylus']
+    }, {
+      type: 'confirm',
+      name: 'tests',
+      message: 'Would you like to use backend tests (Mocha + Supertest)?',
+      default: true
     }];
 
     return this.prompt(prompts).then(function (props) {
@@ -133,11 +138,13 @@ module.exports = yeoman.Base.extend({
       );      
     }
 
-    // Test
-    this.fs.copy(
-      this.templatePath('./test'),
-      this.destinationPath('./test')
-    );    
+    // Tests
+    if(this.props.tests == true) {
+      this.fs.copy(
+        this.templatePath('./test'),
+        this.destinationPath('./test')
+      );
+    }
 
     // Views
     if(this.props.templateEngine == 'Jade') {
