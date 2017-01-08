@@ -199,7 +199,12 @@ module.exports = yeoman.Base.extend({
   },
 
   install: function () {
-    this.installDependencies();
+    var self = this;
+    self.installDependencies({
+      callback: function() {
+        var q = self.spawnCommand('gulp');
+      }
+    });
   },
 
   end: function() {
