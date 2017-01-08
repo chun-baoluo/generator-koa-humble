@@ -10,7 +10,7 @@ describe('Routes', () => {
         .get('/')
         .expect(200, done);
       });
-    });
+    });<% if(props.objectMapping != 'None') { %>
   describe('GET /logout', () => {
     it('should return 200', done => {
       request
@@ -31,5 +31,5 @@ describe('Routes', () => {
         .post('/auth/user')
         .expect(302, done);
       });
-  });
+  });<% } %>
 });

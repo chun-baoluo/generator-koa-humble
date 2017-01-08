@@ -140,9 +140,10 @@ module.exports = yeoman.Base.extend({
 
     // Tests
     if(this.props.tests == true) {
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('./test'),
-        this.destinationPath('./test')
+        this.destinationPath('./test'),
+        this
       );
     }
 
