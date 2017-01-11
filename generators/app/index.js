@@ -63,11 +63,6 @@ module.exports = yeoman.Base.extend({
       choices: ['mysql', 'postgres', 'mariadb']
     }, {
       type: 'list',
-      name: 'templateEngine',
-      message: 'What template engine would you like to use?',
-      choices: ['Jade', 'Swig']
-    }, {
-      type: 'list',
       name: 'cssPreprocessor',
       message: 'What css preprocessor would you like to use?',
       choices: ['Less', 'Sass', 'Stylus']
@@ -84,6 +79,70 @@ module.exports = yeoman.Base.extend({
   },
 
   writing: function () {
+
+    this.fs.copy(
+      this.templatePath('./dev/index.jade'),
+      this.destinationPath('./dev/index.jade')
+    );
+
+    this.fs.copy(
+      this.templatePath('./dev/main.ts'),
+      this.destinationPath('./dev/main.ts')
+    );
+
+    this.fs.copy(
+      this.templatePath('./dev/polyfills.ts'),
+      this.destinationPath('./dev/polyfills.ts')
+    );
+
+    this.fs.copy(
+      this.templatePath('./dev/vendor.ts'),
+      this.destinationPath('./dev/vendor.ts')
+    );
+
+    this.fs.copy(
+      this.templatePath('./dev/app/app.component.jade'),
+      this.destinationPath('./dev/app/app.component.jade')
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('./dev/app/app.component.ts'),
+      this.destinationPath('./dev/app/app.component.ts'),
+      this
+    );
+
+    this.fs.copy(
+      this.templatePath('./dev/app/app.module.ts'),
+      this.destinationPath('./dev/app/app.module.ts')
+    );
+
+    this.fs.copy(
+      this.templatePath('./dev/app/app.routing.ts'),
+      this.destinationPath('./dev/app/app.routing.ts')
+    );
+
+    this.fs.copy(
+      this.templatePath('./dev/app/home'),
+      this.destinationPath('./dev/app/home')
+    );
+
+    if(this.props.cssPreprocessor == 'Stylus') {
+      this.fs.copy(
+        this.templatePath('./dev/app/app.component.styl'),
+        this.destinationPath('./dev/app/app.component.styl')
+      );
+    } else if(this.props.cssPreprocessor == 'Less') {
+      this.fs.copy(
+        this.templatePath('./dev/app/app.component.less'),
+        this.destinationPath('./dev/app/app.component.less')
+      );
+    } else if(this.props.cssPreprocessor == 'Sass') {
+      this.fs.copy(
+        this.templatePath('./dev/app/app.component.scss'),
+        this.destinationPath('./dev/app/app.component.scss')
+      );
+    }
+
     // Controllers
     this.fs.copyTpl(
       this.templatePath('./controllers/views.js'),
@@ -105,38 +164,6 @@ module.exports = yeoman.Base.extend({
         this
       );
     }
-    
-    // Private
-    this.fs.copy(
-      this.templatePath('./private/img'),
-      this.destinationPath('./private/img')
-    );
-
-    this.fs.copy(
-      this.templatePath('./private/js'),
-      this.destinationPath('./private/js')
-    ); 
-
-    if(this.props.cssPreprocessor == 'Less') {
-      this.fs.copy(
-        this.templatePath('./private/less'),
-        this.destinationPath('./private/less')
-      );      
-    }    
-
-    if(this.props.cssPreprocessor == 'Sass') {
-      this.fs.copy(
-        this.templatePath('./private/sass'),
-        this.destinationPath('./private/sass')
-      );      
-    }
-
-    if(this.props.cssPreprocessor == 'Stylus') {
-      this.fs.copy(
-        this.templatePath('./private/stylus'),
-        this.destinationPath('./private/stylus')
-      );      
-    }
 
     // Tests
     if(this.props.tests == true) {
@@ -147,48 +174,32 @@ module.exports = yeoman.Base.extend({
       );
     }
 
-    // Views
-    if(this.props.templateEngine == 'Jade') {
-      this.fs.copy(
-        this.templatePath('./views/jade'),
-        this.destinationPath('./views')
-      );
-    }    
-
-    if(this.props.templateEngine == 'Swig') {
-      this.fs.copy(
-        this.templatePath('./views/swig'),
-        this.destinationPath('./views')
-      );      
-    }
-
     // Root
     this.fs.copyTpl(
       this.templatePath('./package.json'),
       this.destinationPath('./package.json'),
       this
     );
-
-    this.fs.copyTpl(
-      this.templatePath('./bower.json'),
-      this.destinationPath('./bower.json'),
-      this
-    );
-
-    this.fs.copyTpl(
-      this.templatePath('./gulpfile.js'),
-      this.destinationPath('./gulpfile.js'),
-      this
-    );
     
+    this.fs.copy(
+      this.templatePath('./tsconfig.json'),
+      this.destinationPath('./tsconfig.json')
+    );
+
+    this.fs.copy(
+      this.templatePath('./tslint.json'),
+      this.destinationPath('./tslint.json')
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('./webpack.config.js'),
+      this.destinationPath('./webpack.config.js'),
+      this
+    );
+
     this.fs.copy(
       this.templatePath('./gitignore'),
       this.destinationPath('./.gitignore')
-    );
-
-    this.fs.copy(
-      this.templatePath('./.bowerrc'),
-      this.destinationPath('./.bowerrc')
     );
 
     this.fs.copyTpl(
@@ -196,16 +207,17 @@ module.exports = yeoman.Base.extend({
       this.destinationPath('./app.js'),
       this
     );
-
   },
 
   install: function () {
     var self = this;
-    self.installDependencies({
-      callback: function() {
-        var q = self.spawnCommand('gulp');
-      }
-    });
+    self.installDependencies({bower: false, npm: true, callback: function() {
+        var i = self.spawnCommand('npm', ['run-script', 'webpack']);
+      
+        i.on('close', function() {
+          self.log(chalk.green('Done! Have fun!'));
+        });
+    }});
   },
 
   end: function() {

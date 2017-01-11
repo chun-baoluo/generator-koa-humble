@@ -3,19 +3,33 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app.js"<% if(props.tests == true) { %>,
+    "start": "node app.js",
+    "webpack": "webpack --config ./webpack.config.js --progress --colors --profile --bail"<% if(props.tests == true) { %>,
     "test": "mocha"<% } %>
   },
-  "dependencies": {<% if(props.objectMapping == 'Mongoose') { %>
+  "dependencies": {
+    "@angular/common": "^2.4.1",
+    "@angular/compiler": "^2.4.1",
+    "@angular/core": "^2.4.1",
+    "@angular/forms": "^2.4.1",
+    "@angular/http": "^2.4.1",
+    "@angular/platform-browser": "^2.4.1",
+    "@angular/platform-browser-dynamic": "^2.4.1",
+    "@angular/router": "^3.4.1",
+    "@types/core-js": "^0.9.34",
+    "core-js": "^2.4.1",
+    "fs-extra": "^1.0.0",
+    "reflect-metadata": "^0.1.3",
+    "rxjs": "5.0.1",
+    "typescript": "^2.1.1",
+    "zone.js": "^0.7.2",<% if(props.objectMapping == 'Mongoose') { %>
     "bluebird": "^3.4.0",<% } %>
     "co-body": "^4.2.0",
-    "co-views": "^2.1.0",<% if(props.templateEngine == 'Jade') { %>
-    "jade": "^1.11.0",<% } if(props.sqlDialect == 'mariadb') { %>
+    "co-views": "^2.1.0",<% if(props.templateEngine == 'Jade') { %><% } if(props.sqlDialect == 'mariadb') { %>
     "mariasql": "^0.2.6",<% } if(props.objectMapping == 'Mongoose') { %>
     "mongoose": "^4.7.6",<% } if(props.sqlDialect == 'mysql') { %>
-    "mysql": "^2.12.0", <% } if(props.objectMapping == 'Sequelize') { %>
-    "sequelize": "^3.29.0",<% } if(props.templateEngine == 'Swig') { %>
-    "swig": "^1.3.2",<% } if(props.sqlDialect == 'postgres') { %>
+    "mysql": "^2.12.0",<% } if(props.objectMapping == 'Sequelize') { %>
+    "sequelize": "^3.29.0",<% } if(props.sqlDialect == 'postgres') { %>
     "pg": "^6.1.2",<% } if(props.koa == 'Koa v1') { %>
     "koa": "^1.2.4",
     "koa-convert": "^1.2.0",<% } if(props.koa == 'Koa v2') { %>
@@ -25,20 +39,33 @@
     "koa-passport": "^1.4.0",
     "passport-local": "^1.0.0",
     "md5": "^2.1.0",<% } %>
+    "swig": "^1.3.2",
     "koa-compress": "^1.0.9",
     "koa-logger": "^1.3.0",
     "koa-router": "^5.4.0",
     "koa-static": "^2.0.0"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^3.1.1",
-    "gulp-imagemin": "^3.1.1",<% if(props.cssPreprocessor == 'Less') { %>
-    "gulp-less": "^3.3.0",<% } %>
-    "gulp-rename": "^1.2.2",<% if(props.cssPreprocessor == 'Sass') { %>
-    "gulp-sass": "^3.0.0",<% } if(props.cssPreprocessor == 'Stylus') { %>
-    "gulp-stylus": "^2.6.0",<% } %>
-    "gulp-uglify": "^2.0.0"<% if(props.tests == true) { %>,
+    "@types/node": "^6.0.58",
+    "codelyzer": "2.0.0-beta.4",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.26.0",
+    "pug": "^2.0.0-beta6",
+    "pug-loader": "^2.3.0",
+    "style-loader": "^0.13.1",<% if(props.cssPreprocessor == 'Stylus') { %>
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.4.0",<% } %><% if(props.cssPreprocessor == 'Less') { %>
+    "less": "^2.7.2",
+    "less-loader": "^2.2.3",<% } %><% if(props.cssPreprocessor == 'Sass') { %>
+    "node-sass": "^4.1.1",
+    "sass-loader": "^4.0.2",<% } %>
+    "ts-loader": "^0.8.1",
+    "tslint": "^4.3.1",
+    "typescript": "^2.1.4",
+    "webpack": "^1.14.0",
+    "webpack-merge": "^2.3.1"<% if(props.tests == true) { %>,
     "mocha": "^3.2.0",
     "supertest": "^2.0.1"<% } %>
   }
