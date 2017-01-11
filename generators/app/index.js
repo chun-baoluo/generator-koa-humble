@@ -220,7 +220,4 @@ module.exports = yeoman.Base.extend({
     }});
   },
 
-  end: function() {
-    this.log(chalk.green('Done! Have fun!'));
-  }
 });
