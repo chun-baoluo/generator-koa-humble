@@ -18,7 +18,7 @@ $ yo koa-humble
 
 ```
 
-The generator will run Webpack after finishing dependency installation. Then simply use
+The generator will run Webpack after finishing dependencies installation. Then simply use
 
 ```sh
 
