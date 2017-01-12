@@ -37,6 +37,16 @@ module.exports = yeoman.Base.extend({
           return response.objectMapping;
         }
       },
+      name: 'dbname',
+      type: 'input',
+      message: 'What is the name of your database?',
+      default: this.props.appName
+    }, {
+      when: function(response) {
+        if(response.objectMapping == 'Sequelize') {
+          return response.objectMapping;
+        }
+      },
       name: 'username',
       type: 'input',
       message: 'What is your username for the database?',

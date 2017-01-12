@@ -25,7 +25,7 @@ module.exports = {
 <% } %><% if(props.objectMapping == 'Sequelize') { %>
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('<%= props.appName %>', '<%= props.username %>', '<%= props.password %>', {
+const sequelize = new Sequelize('<%= props.dbname %>', '<%= props.username %>', '<%= props.password %>', {
 	host: 'localhost',
 	dialect: '<%= props.sqlDialect %>',
 	pool: {
