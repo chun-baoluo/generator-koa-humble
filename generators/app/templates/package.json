@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "webpack": "webpack --config ./webpack.config.js --progress --colors --profile --bail"<% if(props.tests == true) { %>,
+    "webpack": "webpack --config ./webpack.config.js --progress --colors --profile --bail",
+    "tslint": "tslint -c ./tslint.json 'dev/**/*.ts'; exit 0;"<% if(props.tests == true) { %>,
     "test": "mocha"<% } %>
   },
   "dependencies": {
