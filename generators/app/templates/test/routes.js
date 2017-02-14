@@ -10,7 +10,7 @@ describe('Routes', () => {
         .get('/')
         .expect(200, done);
       });
-    });<% if(props.objectMapping != 'None') { %>
+    });<% if(objectMapping != 'None') { %>
   describe('GET /logout', () => {
     it('should return 200', done => {
       request

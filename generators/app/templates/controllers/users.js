@@ -11,7 +11,7 @@ passport.use('user', new localStrategy({
     usernameField: 'username',
     passwordField: 'password'
   },
-  (username, password, done) => {<% if(props.objectMapping == 'Mongoose') { %>
+  (username, password, done) => {<% if(objectMapping == 'Mongoose') { %>
     models.user.findOne({ 
       username: username,
     }).then((user) => {
@@ -24,7 +24,7 @@ passport.use('user', new localStrategy({
       }
     }).error((err) => {
       return done(err);
-    });<% } %><% if(props.objectMapping == 'Sequelize') { %>
+    });<% } %><% if(objectMapping == 'Sequelize') { %>
       models.users.findOne({ 
         where: {
           username: username,
@@ -48,12 +48,12 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((user, done) => {
-	if(user.type == 'user') {<% if(props.objectMapping == 'Mongoose') { %>
+	if(user.type == 'user') {<% if(objectMapping == 'Mongoose') { %>
     models.user.findById(user.id).then((user) => {
       done(null, {id: user._id, type: 'user'});
     }).error((err) => {
       done(new Error('User ' + user.id + ' does not exist'));
-    });<% } %><% if(props.objectMapping == 'Sequelize') { %>
+    });<% } %><% if(objectMapping == 'Sequelize') { %>
       models.user.find({
         where: {
           id: user.id

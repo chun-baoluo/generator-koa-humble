@@ -1,8 +1,8 @@
-'use strict'<% if(props.objectMapping == 'Mongoose') { %>
+'use strict'<% if(objectMapping == 'Mongoose') { %>
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-mongoose.connect('mongodb://localhost/<%= props.appName %>');
+mongoose.connect('mongodb://localhost/<%= appName %>');
 
 mongoose.Promise = require('bluebird');
 
@@ -22,12 +22,12 @@ const userSchema = new Schema({
 module.exports = {
 	user: mongoose.model('user', userSchema)
 };
-<% } %><% if(props.objectMapping == 'Sequelize') { %>
+<% } %><% if(objectMapping == 'Sequelize') { %>
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('<%= props.dbname %>', '<%= props.username %>', '<%= props.password %>', {
+const sequelize = new Sequelize('<%= dbname %>', '<%= username %>', '<%= password %>', {
 	host: 'localhost',
-	dialect: '<%= props.sqlDialect %>',
+	dialect: '<%= sqlDialect %>',
 	pool: {
 		max: 5,
 		min: 0,
