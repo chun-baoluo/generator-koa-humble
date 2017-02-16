@@ -10,7 +10,7 @@ module.exports = class extends Generator {
     };
 
     initializing() {
-      this.log(yosay('Yo! Welcome to the humble ' + chalk.yellow('koa') + ' generator!'));
+      this.log(yosay('Yo! Welcome to the humble ' + chalk.yellow.bold('koa') + ' generator!'));
 
       this.sourceRoot(path.join(__dirname, 'templates'));
 
@@ -245,7 +245,7 @@ module.exports = class extends Generator {
       var i = this.spawnCommand('npm', ['run-script', 'webpack']);
       
       i.on('close', () => {
-        this.log(chalk.green('Done! Have fun!'));
+        this.log(chalk.green.bold('Done! Have fun!'));
       });      
     };
 };
