@@ -37,7 +37,7 @@ app.use(router.middleware());
 // Compress
 app.use(compress());
 
-if (!module.parent) {
+if(!module.parent) {
   app.listen(7777);
   console.log('Listening on port 7777');
 }

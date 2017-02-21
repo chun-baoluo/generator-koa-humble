@@ -21,7 +21,7 @@ var config = {
                 loader: 'ts'
             },
             {
-                test: /\.jade$/,
+                test: /\.(jade|pug)$/,
                 loader: 'pug-loader'
             },
             {
@@ -50,7 +50,7 @@ var config = {
         }),
 
         new HtmlWebpackPlugin({
-            template: 'dev/index.jade',
+            template: 'dev/index.pug',
             filename: '../views/index.html'
         })
     ]

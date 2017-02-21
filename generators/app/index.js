@@ -106,8 +106,8 @@ module.exports = class extends Generator {
 
     writing() {
       this.fs.copy(
-        this.templatePath('./dev/index.jade'),
-        this.destinationPath('./dev/index.jade')
+        this.templatePath('./dev/index.pug'),
+        this.destinationPath('./dev/index.pug')
       );
 
       this.fs.copy(
@@ -126,8 +126,8 @@ module.exports = class extends Generator {
       );
 
       this.fs.copy(
-        this.templatePath('./dev/app/app.component.jade'),
-        this.destinationPath('./dev/app/app.component.jade')
+        this.templatePath('./dev/app/app.component.pug'),
+        this.destinationPath('./dev/app/app.component.pug')
       );
 
       this.fs.copyTpl(

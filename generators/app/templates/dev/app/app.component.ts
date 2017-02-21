@@ -4,7 +4,7 @@ import <% if(cssPreprocessor == 'Stylus') { %>'./app.component.styl'<% } %><% if
 
 @Component({
     selector: 'koa-app',
-    template: require('./app.component.jade')()
+    template: require('./app.component.pug')()
 })
 
 export class AppComponent {
