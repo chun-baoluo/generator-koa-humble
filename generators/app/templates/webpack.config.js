@@ -11,14 +11,14 @@ var config = {
     },
 
     resolve: {
-        extensions: ['', '.ts', '.js', <% if(cssPreprocessor == 'Stylus') { %>'.styl'<% } %><% if(cssPreprocessor == 'Less') { %>'.less'<% } %><% if(cssPreprocessor == 'Sass') { %>'.scss'<% } %>]
+        extensions: ['*', '.ts', '.js', <% if(cssPreprocessor == 'Stylus') { %>'.styl'<% } %><% if(cssPreprocessor == 'Less') { %>'.less'<% } %><% if(cssPreprocessor == 'Sass') { %>'.scss'<% } %>]
     },
 
     module: {
         loaders: [
             {
                 test: /\.ts$/,
-                loader: 'ts'
+                loader: 'ts-loader'
             },
             {
                 test: /\.(jade|pug)$/,
@@ -31,15 +31,15 @@ var config = {
             },<% if(cssPreprocessor == 'Stylus') { %>
             {
                 test: /\.styl$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader!stylus-loader')
+                loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!stylus-loader' })
             }<% } %><% if(cssPreprocessor == 'Less') { %>
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
+                loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!less-loader' })
             }<% } %><% if(cssPreprocessor == 'Sass') { %>
             {
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader')
+                loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!sass-loader' })
             }<% } %>
         ]
     },
@@ -66,13 +66,8 @@ module.exports = webpackMerge(config, {
         chunkFilename: '[id].chunk.js'
     },
 
-    htmlLoader: {
-        minimize: false
-    },
-
     plugins: [
-        new webpack.NoErrorsPlugin(),
-        new webpack.optimize.DedupePlugin(),
+        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false
