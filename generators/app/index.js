@@ -75,7 +75,7 @@ module.exports = class extends Generator {
         },
         name: 'sqlDialect',
         type: 'list',
-        message: 'What is your sql dialect?',
+        message: 'What is your preferred sql dialect?',
         choices: ['mysql', 'postgres', 'mariadb']
       }, {
         type: 'list',
@@ -86,6 +86,11 @@ module.exports = class extends Generator {
         type: 'confirm',
         name: 'templateEngine',
         message: 'Would you like to use Pug (Jade) template engine?',
+        default: true
+      }, {
+        type: 'confirm',
+        name: 'materialDesign',
+        message: 'Would you like to use Angular 2 Material?',
         default: true
       }, {
         type: 'confirm',
@@ -105,6 +110,7 @@ module.exports = class extends Generator {
         this.data.cssPreprocessor = answers.cssPreprocessor;
         this.data.tests = answers.tests;
         this.data.templateEngine = answers.templateEngine;
+        this.data.materialDesign = answers.materialDesign;
 
         done();
       }.bind(this));
@@ -156,12 +162,13 @@ module.exports = class extends Generator {
         this.data
       );
 
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('./dev/app/app.module.ts'),
-        this.destinationPath('./dev/app/app.module.ts')
+        this.destinationPath('./dev/app/app.module.ts'),
+        this.data
       );
 
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('./dev/app/app.routing.ts'),
         this.destinationPath('./dev/app/app.routing.ts')
       );
