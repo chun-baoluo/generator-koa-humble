@@ -28,6 +28,7 @@ Humble koa generator for yeoman. Koa v1/v2 + (Moongose/Sequelize) + Angular v2 +
 	$ npm test # Launches tests.
 	$ npm run-script tslint # Starts code check with tslint.
 	$ npm run-script webpack # Initiates webpack rebuild of the project.
+	$ npm run watch # Watches changes in dev folder using webpack-dev-server.
 
 ```
 

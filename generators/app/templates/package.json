@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node app.js",
     "webpack": "webpack --config ./webpack.config.js --progress --colors --profile --bail",
+    "watch": "webpack-dev-server --config ./webpack.config.js --progress --colors",
     "tslint": "tslint -c ./tslint.json 'dev/**/*.ts'; exit 0;"<% if(tests == true) { %>,
     "test": "mocha"<% } %>
   },
@@ -69,6 +70,7 @@
     "tslint": "^4.5.1",
     "typescript": "^2.2.1",
     "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.5",
     "webpack-merge": "^2.3.1"<% if(tests == true) { %>,
     "mocha": "^3.2.0",
     "supertest": "^2.0.1"<% } %>
