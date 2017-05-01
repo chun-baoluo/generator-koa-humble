@@ -4,8 +4,12 @@ const bodyParser = require('koa-bodyparser');
 const convert = require('koa-convert');
 const session = require('koa-generic-session');
 const passport = require('koa-passport');
-const md5 = require('md5');
+const crypto = require('crypto');
 const localStrategy = require('passport-local').Strategy;
+
+function md5(str) {
+    return crypto.createHash('md5').update(str).digest('hex');
+};
 
 passport.use('user', new localStrategy({
     usernameField: 'username',
@@ -68,26 +72,43 @@ passport.deserializeUser((user, done) => {
     done(new Error('Unknown strategy.'));
   }
 });
-
+<% if(koa == 'Koa v1') { %> 
 module.exports.routes = {
   logout: function *logout() {
     this.logout();
     this.redirect('/');
   },
   users: function *users() {
-		this.body = yield models.user.find({}).then((users) => {
+		this.body = yield models.user.<% if(objectMapping == 'Mongoose') { %>find({})<% } else { %>findAll()<% } %>.then((users) => {
 			return users;
 		});
 	},
   authenticatedUser: function *authenticatedUser(next) {
-    if (this.req.isAuthenticated() && this.req.user.type == 'user') {
+    if(this.req.isAuthenticated() && this.req.user.type == 'user') {
       yield next;
     } else {
       this.redirect('/');
     }
   }
-};
-
+};<% } else { %>
+module.exports.routes = {
+  logout: async function logout() {
+    this.logout();
+    this.redirect('/');
+  },
+  users: async function users() {
+    this.body = await models.user.<% if(objectMapping == 'Mongoose') { %>find({})<% } else { %>findAll()<% } %>.then((users) => {
+      return users;
+    });
+  },
+  authenticatedUser: async function authenticatedUser(next) {
+    if(this.req.isAuthenticated() && this.req.user.type == 'user') {
+      await next;
+    } else {
+      this.redirect('/');
+    }
+  }
+};<% } %>
 module.exports.passport = passport;
 module.exports.session = session;
 module.exports.convert = convert;
