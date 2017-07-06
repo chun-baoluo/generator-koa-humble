@@ -1,6 +1,6 @@
 {
   "name": "generator-koa-humble",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Humble koa generator. Koa v1/v2 + (Moongose/Sequelize) + Angular v2 + Typescript + Less/Sass/Stylus + Pug (Jade)",
   "files": [
     "generators"
