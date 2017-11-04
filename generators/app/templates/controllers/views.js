@@ -12,13 +12,6 @@ function read(src) {
   });
 };
 
-<% if(koa == 'Koa v1') { %>
-module.exports.home = function *home() {
-  this.body = yield read('./views/index.html', {
-<% } else { %>
 module.exports.home = async function home() {
-  this.body = await read('./views/index.html', {
-<% } %>
-  	title: 'Humble koa app'
-  });
+  this.body = await read('./views/index.html');
 };

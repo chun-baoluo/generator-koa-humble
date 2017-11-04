@@ -16,7 +16,7 @@ passport.use('user', new localStrategy({
     passwordField: 'password'
   },
   (username, password, done) => {<% if(objectMapping == 'Mongoose') { %>
-    models.user.findOne({ 
+    models.user.findOne({
       username: username,
     }).then((user) => {
       if(!user) {
@@ -24,12 +24,12 @@ passport.use('user', new localStrategy({
       } else if(md5(password) != user.password) {
         return done(null, false, {message: "Wrong password!"});
       } else {
-        return done(null, {id: user._id, type: 'user'});            
+        return done(null, {id: user._id, type: 'user'});
       }
     }).error((err) => {
       return done(err);
     });<% } %><% if(objectMapping == 'Sequelize') { %>
-      models.users.findOne({ 
+      models.users.findOne({
         where: {
           username: username,
         }
@@ -39,7 +39,7 @@ passport.use('user', new localStrategy({
         } else if(md5(password) != user.password) {
           return done(null, false, {message: "Wrong password!"});
         } else {
-          return done(null, {id: user.id, type: 'user'});            
+          return done(null, {id: user.id, type: 'user'});
         }
       }).error((err) => {
         return done(err);
@@ -72,25 +72,7 @@ passport.deserializeUser((user, done) => {
     done(new Error('Unknown strategy.'));
   }
 });
-<% if(koa == 'Koa v1') { %> 
-module.exports.routes = {
-  logout: function *logout() {
-    this.logout();
-    this.redirect('/');
-  },
-  users: function *users() {
-		this.body = yield models.user.<% if(objectMapping == 'Mongoose') { %>find({})<% } else { %>findAll()<% } %>.then((users) => {
-			return users;
-		});
-	},
-  authenticatedUser: function *authenticatedUser(next) {
-    if(this.req.isAuthenticated() && this.req.user.type == 'user') {
-      yield next;
-    } else {
-      this.redirect('/');
-    }
-  }
-};<% } else { %>
+
 module.exports.routes = {
   logout: async function logout() {
     this.logout();
@@ -108,7 +90,8 @@ module.exports.routes = {
       this.redirect('/');
     }
   }
-};<% } %>
+};
+
 module.exports.passport = passport;
 module.exports.session = session;
 module.exports.convert = convert;

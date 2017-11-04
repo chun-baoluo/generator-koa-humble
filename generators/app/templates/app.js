@@ -7,7 +7,7 @@ const serve = require('koa-static');
 const router = new (require('koa-router'))();
 const Koa = require('koa');
 const path = require('path');
-const app = module.exports = <% if(koa == 'Koa v2') { %> new <% } %> Koa();
+const app = module.exports = new Koa();
 
 app.keys = ['here-will-be-your-keys-and-nothing-else'];
 

@@ -29,11 +29,6 @@ module.exports = class extends Generator {
         default: this.data.appName
       }, {
         type: 'list',
-        name: 'koa',
-        message: 'What koa version do you prefer?',
-        choices: ['Koa v1', 'Koa v2'],
-      }, {
-        type: 'list',
         name: 'objectMapping',
         message: 'What object mapping would you like to use?',
         choices: ['Mongoose', 'Sequelize', 'None'],
@@ -101,7 +96,6 @@ module.exports = class extends Generator {
 
       this.prompt(prompts).then(function(answers) {
         this.data.appName = answers.appName;
-        this.data.koa = answers.koa;
         this.data.objectMapping = answers.objectMapping;
         this.data.dbname = answers.dbname;
         this.data.username = answers.username;
@@ -126,7 +120,7 @@ module.exports = class extends Generator {
         this.fs.copy(
           this.templatePath('./dev/index.html'),
           this.destinationPath('./dev/index.html')
-        );        
+        );
       };
 
       this.fs.copy(
@@ -153,7 +147,7 @@ module.exports = class extends Generator {
         this.fs.copy(
           this.templatePath('./dev/app/app.component.html'),
           this.destinationPath('./dev/app/app.component.html')
-        );       
+        );
       };
 
       this.fs.copyTpl(
@@ -252,7 +246,7 @@ module.exports = class extends Generator {
         this.destinationPath('./package.json'),
         this.data
       );
-    
+
       this.fs.copy(
         this.templatePath('./tsconfig.json'),
         this.destinationPath('./tsconfig.json')
@@ -290,10 +284,9 @@ module.exports = class extends Generator {
 
     end() {
       var i = this.spawnCommand('npm', ['run-script', 'webpack']);
-      
+
       i.on('close', () => {
         this.log(chalk.green.bold('Done! Have fun!'));
-      });      
+      });
     };
 };
-

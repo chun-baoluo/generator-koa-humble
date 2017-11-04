@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-mongoose.connect('mongodb://localhost/<%= appName %>');
+mongoose.createConnection('mongodb://localhost/<%= appName %>');
 
 mongoose.Promise = require('bluebird');
 
