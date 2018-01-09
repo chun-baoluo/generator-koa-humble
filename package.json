@@ -1,6 +1,6 @@
 {
   "name": "generator-koa-humble",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Humble koa generator. Koa v2 + (Moongose/Sequelize) + Angular 2 + Typescript + Less/Sass/Stylus + Pug (Jade)",
   "files": [
     "generators"
@@ -18,8 +18,8 @@
     "Angular 2"
   ],
   "dependencies": {
-    "chalk": "^2.1.0",
-    "yeoman-generator": "^2.0.1",
+    "chalk": "^2.3.0",
+    "yeoman-generator": "^2.0.2",
     "yosay": "^2.0.1"
   },
   "repository": {
