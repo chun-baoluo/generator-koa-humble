@@ -2,7 +2,7 @@
 
 ![alt tag](https://raw.githubusercontent.com/bakharevpavel/generator-electron-humble/master/generators/app/templates/dev/app/home/icon.png)
 
-Humble koa generator for yeoman. Koa v2 + (Moongose/Sequelize) + Angular v2 + Typescript + Less/Sass/Stylus + Jade
+Humble koa generator for yeoman. Koa v2 + (Moongose/Sequelize) + Angular v2 + Typescript + Less/Sass/Stylus + Pug (Jade)
 
 ## Installation
 
@@ -27,8 +27,8 @@ Humble koa generator for yeoman. Koa v2 + (Moongose/Sequelize) + Angular v2 + Ty
 	$ npm start # Launches the app.
 	$ npm test # Launches tests.
 	$ npm run-script tslint # Starts code check with tslint.
-	$ npm run-script webpack # Initiates webpack rebuild of the project.
-	$ npm run watch # Watches changes in dev folder using webpack-dev-server.
+	$ npm run build:prod # Initiates project's rebuild for production.
+	$ npm run build:dev # Watches project's folder for changes and launches hot-reload using webpack-dev-server.
 
 ```
 

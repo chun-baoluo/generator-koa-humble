@@ -139,14 +139,16 @@ module.exports = class extends Generator {
       );
 
       if(this.data.templateEngine == true) {
-        this.fs.copy(
+        this.fs.copyTpl(
           this.templatePath('./dev/app/app.component.pug'),
-          this.destinationPath('./dev/app/app.component.pug')
+          this.destinationPath('./dev/app/app.component.pug'),
+          this.data
         );
       } else {
-        this.fs.copy(
+        this.fs.copyTpl(
           this.templatePath('./dev/app/app.component.html'),
-          this.destinationPath('./dev/app/app.component.html')
+          this.destinationPath('./dev/app/app.component.html'),
+          this.data
         );
       };
 
@@ -283,7 +285,7 @@ module.exports = class extends Generator {
     };
 
     end() {
-      var i = this.spawnCommand('npm', ['run-script', 'webpack']);
+      var i = this.spawnCommand('npm', ['run', 'build:prod']);
 
       i.on('close', () => {
         this.log(chalk.green.bold('Done! Have fun!'));
