@@ -1,38 +1,45 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
 module.exports = (env = { type: 'dev' }) => {
     let plugins = [
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['app', 'vendor', 'polyfills']
+            name: ['main', 'polyfills']
         }),
         new HtmlWebpackPlugin({
             template: <% if(templateEngine) { %>'dev/index.pug'<% } else { %>'dev/index.html'<% } %>,
-            filename: '../views/index.html'
+            alwaysWriteToDisk: true
         }),
         new webpack.NoEmitOnErrorsPlugin(),
         new ExtractTextPlugin('[name].[hash].css'),
         new webpack.DefinePlugin({
             PRODUCTION: JSON.stringify(env.type == 'prod')
-        })
+        }),
+        new webpack.optimize.OccurrenceOrderPlugin()
+    ];
+    
+    let entry = [
+        './dev/polyfills.ts',
+        './dev/vendor.ts',
+        './dev/main.ts'
     ];
 
     return {
         
         devServer: {
-            contentBase: __dirname  + '/public/',
+            contentBase: __dirname  + '/',
             proxy: {
                 '/': 'http://localhost:7777'
             },
-            hot: true
+            hot: true,
+            publicPath: '/'
         },
         
-        entry: {
-            polyfills: './dev/polyfills.ts',
-            vendor: './dev/vendor.ts',
-            app: './dev/main.ts'
-        },
+        entry: env.type == 'dev' ? entry.concat([
+            'webpack/hot/only-dev-server',
+        ]) : entry,
 
         resolve: {
             extensions: ['*', '.ts', '.js', <% if(cssPreprocessor == 'Stylus') { %>'.styl'<% } %><% if(cssPreprocessor == 'Less') { %>'.less'<% } %><% if(cssPreprocessor == 'Sass') { %>'.scss'<% } %>]
@@ -88,7 +95,6 @@ module.exports = (env = { type: 'dev' }) => {
         },
         
         plugins: env.type == 'dev' ? plugins.concat([
-            new webpack.HotModuleReplacementPlugin(),
             new webpack.NamedModulesPlugin()
         ]) : plugins.concat([
             new webpack.optimize.UglifyJsPlugin({

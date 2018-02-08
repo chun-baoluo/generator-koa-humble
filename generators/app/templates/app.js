@@ -11,6 +11,16 @@ const app = module.exports = new Koa();
 
 app.keys = ['here-will-be-your-keys-and-nothing-else'];
 
+if(process.argv.length > 2 && process.argv[2] == '--dev') {
+    const middleware = require('koa-webpack');
+    const webpack = require('webpack');
+    const config = require('./webpack.config')();
+    let compiler = webpack(config);
+    app.use(middleware({
+      compiler: compiler
+    }));
+};
+
 // Logger
 app.use(logger());
 <% if(objectMapping != 'None') { %>

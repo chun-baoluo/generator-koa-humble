@@ -27,8 +27,9 @@ Humble koa generator for yeoman. Koa v2 + (Moongose/Sequelize) + Angular v2 + Ty
 	$ npm start # Launches the app.
 	$ npm test # Launches tests.
 	$ npm run-script tslint # Starts code check with tslint.
-	$ npm run build:prod # Initiates project's rebuild for production.
-	$ npm run build:dev # Watches project's folder for changes and launches hot-reload using webpack-dev-server.
+	$ npm run start:dev # Launches the app in dev mode (along with dev app build using koa-webpack).
+	$ npm run start:prod # Same as npm start.
+	$ npm run build:prod # Initiates project's rebuild and prepares it for production.
 
 ```
 

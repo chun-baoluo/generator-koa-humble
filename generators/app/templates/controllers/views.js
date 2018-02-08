@@ -13,5 +13,5 @@ function read(src) {
 };
 
 module.exports.home = async (ctx) => {
-  ctx.body = await read('./views/index.html');
+  ctx.body = await read('./public/index.html');
 };
